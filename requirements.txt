@@ -1,3 +1,4 @@
 requests
 ipython
 mws
+sqlalchemy
