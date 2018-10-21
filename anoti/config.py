@@ -8,3 +8,4 @@ request_per_hour_quota = 200
 access_key = os.environ.get('SELLER_CENTRAL_ACCESS_KEY_ID')
 secret_key = os.environ.get('SELLER_CENTRAL_SECRET_KEY')
 app = 'anoti'
+
