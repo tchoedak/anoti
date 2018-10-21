@@ -3,10 +3,12 @@ import config
 from datetime import datetime, timedelta
 from collections import OrderedDict
 
+
 def sign(string, secret, digest='hex'):
     import hashlib
     import hmac
     import base64
+
     secret = bytes(secret, 'utf-8')
     message = bytes(string, 'utf-8')
     hash_ = hmac.new(secret, message, hashlib.sha256)
@@ -24,15 +26,14 @@ def build_request(request_type, service, endpoint, params):
 
 
 def access():
-    keys = {
-        'AWSAccessKeyId': config.access_key
-        }
+    keys = {'AWSAccessKeyId': config.access_key}
     return keys
 
 
 class OrdersRequest(object):
-    
+
     _timestamp_format = '%Y-%m-%dT%H:%M:%S'
+
     def __init__(self, action='ListOrders', last_updated_after=None):
         self.action = action
         self.marketplace_id = config.marketplace_id
@@ -70,11 +71,7 @@ class OrdersRequest(object):
     def signed_request(self):
         signature = self.create_signature(self.built_request)
         _keys = OrderedDict()
-        _keys.update(
-            {
-                'Signature': signature,
-            }
-        )
+        _keys.update({'Signature': signature})
         _url = self.built_request + self.to_url(_keys)
         return _url
 
@@ -121,7 +118,5 @@ class OrdersRequest(object):
             service=self.service,
             endpoint=self.endpoint,
             version=self.version,
-            access_key=self.access_key
+            access_key=self.access_key,
         )
-
-    

@@ -10,7 +10,7 @@ engine = create_engine(url)
 _sessionmaker = sessionmaker(bind=engine)
 session = _sessionmaker()
 
+
 def create_db():
     conn = sqlite3.connect(f"{config.app}.db")
     print(sqlite3.version)
-

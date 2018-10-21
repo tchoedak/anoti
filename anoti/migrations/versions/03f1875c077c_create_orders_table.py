@@ -31,5 +31,6 @@ def upgrade():
         sa.Column('updated_at', sa.DateTime),
     )
 
+
 def downgrade():
     op.drop_table('orders')

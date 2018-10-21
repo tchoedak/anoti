@@ -1,12 +1,6 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import (
-    Column,
-    Integer,
-    String,
-    DateTime,
-    Boolean,
-    Float
-)
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, Float
+
 Base = declarative_base()
 
 
@@ -23,4 +17,3 @@ class Order(object):
     ship_service_level = Column(String)
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
-
