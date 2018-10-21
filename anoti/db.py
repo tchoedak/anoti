@@ -4,8 +4,9 @@ from sqlalchemy import engine, create_engine
 from sqlalchemy.orm import sessionmaker
 
 
-_db = f"{config.app}.db"
-engine = create_engine(f'sqlite:///{_db}')
+_db = f'{config.app}.db'
+url = f'sqlite:///{_db}'
+engine = create_engine(url)
 _sessionmaker = sessionmaker(bind=engine)
 session = _sessionmaker()
 
