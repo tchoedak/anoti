@@ -2,3 +2,4 @@ requests
 ipython
 mws
 sqlalchemy
+alembic
