@@ -2,10 +2,11 @@ from __future__ import with_statement
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 from logging.config import fileConfig
-
+import db
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
+config.set_main_option('sqlalchemy.url', db.url)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -35,8 +36,7 @@ def run_migrations_offline():
     script output.
 
     """
-    url = config.url
-    context.configure(url=url, target_metadata=target_metadata, literal_binds=True)
+    context.configure(url=db.url, target_metadata=target_metadata, literal_binds=True)
 
     with context.begin_transaction():
         context.run_migrations()
