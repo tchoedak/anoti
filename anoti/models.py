@@ -1,13 +1,13 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DateTime, Boolean, Float
 
+
 Base = declarative_base()
 
-
-class Order(object):
+class Order(Base):
     __tablename__ = 'orders'
 
-    amazon_order_id = Column(Integer, primary_key=True)
+    amazon_order_id = Column(String, primary_key=True)
     is_prime = Column(Boolean)
     item = Column(String)
     price = Column(Float)
@@ -17,3 +17,4 @@ class Order(object):
     ship_service_level = Column(String)
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
+
