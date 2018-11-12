@@ -4,6 +4,7 @@ from sqlalchemy import Column, Integer, String, DateTime, Boolean, Float
 
 Base = declarative_base()
 
+
 class Order(Base):
     __tablename__ = 'orders'
 
@@ -17,4 +18,3 @@ class Order(Base):
     ship_service_level = Column(String)
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
-
