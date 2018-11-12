@@ -1,0 +1,2 @@
+run python anoti/app.py
+fix error on queries.exists()
