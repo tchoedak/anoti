@@ -1,5 +1,5 @@
 import sqlite3
-import config
+from . import config
 from sqlalchemy import engine, create_engine
 from sqlalchemy.orm import sessionmaker
 
