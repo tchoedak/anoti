@@ -8,8 +8,8 @@ def new_orders(orders):
     """
     order_ids = [order.amazon_order_id for order in orders]
     new_orders = (
-        db.session.query(models.Order)
-        .filter(models.Order.amazon_order_id.notin(order_ids))
+        db.session.query(models.AmazonOrder)
+        .filter(models.AmazonOrder.amazon_order_id.notin(order_ids))
     )
     return new_orders
 
@@ -17,9 +17,11 @@ def exists(order):
     """
     Returns True if the order exists in the DB
     """
+    print(order)
+    print(order.AmazonOrderId)
     order = (
-        db.session.query(models.Order)
-        .filter(models.Order.amazon_order_id.in(order.amazon_order_id))
+        db.session.query(models.AmazonOrder)
+        .filter(models.AmazonOrder.amazon_order_id == order.AmazonOrderId)
     ).first()
     if order:
         return True

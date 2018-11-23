@@ -1,7 +1,7 @@
 import mws
 from datetime import datetime, timedelta
 import click
-from anoti import orders, config, db, rules
+from anoti import api, config, rules
 
 
 @click.command()
@@ -9,13 +9,21 @@ def cli():
     pulse()
 
 def pulse():
-    pulse_range = timedelta(hours=24)
+    pulse_range = timedelta(hours=120)
     pulse_interval = timedelta(hours=1)
-    pulse_orders = orders.orders(last_updated_after=datetime.now() - pulse_range)
-    for order in pulse_orders:
+    pulse_orders = api.CompleteOrders(last_updated_after=datetime.now()-pulse_range)
+    for order in pulse_orders.complete_orders:
+        print(order)
         if all([rule(order) for rule in rules.rules]):
             alert(order)
-    pulse_orders.save()
+        if rules.is_shipped(order):
+            print('is shipped!')
 
 def alert(order):
     print('Woah!!!')
+
+def save(orders):
+    pass
+
+if __name__ == '__main__':
+    cli()
