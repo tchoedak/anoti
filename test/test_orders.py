@@ -16,7 +16,7 @@ class TestOrders(unittest.TestCase):
     def test_get_orders_since(self):
         print('testing get_orders_since')
         from anoti.orders import Orders
-        past_24_hours = datetime.now() - timedelta(hours=24)
+        past_24_hours = datetime.now() - timedelta(hours=120)
         past_day_orders = Orders(last_updated_after=past_24_hours)
         print(past_day_orders.get_orders_since(past_24_hours))
 
