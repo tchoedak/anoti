@@ -3,3 +3,4 @@ ipython
 mws
 sqlalchemy
 alembic
+click
