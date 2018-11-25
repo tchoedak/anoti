@@ -1,2 +1,14 @@
-# ignore dbs
+**/.DS_Store
 *.db
+.venv
+.venv3
+.cache
+.pytest_cache
+*.pyc
+*.pyo
+*.swp
+*~
+.eggs
+*.egg-info
+/build
+/dist
