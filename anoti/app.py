@@ -9,8 +9,8 @@ def cli():
     pulse()
 
 def pulse():
-    pulse_range = timedelta(hours=120)
-    pulse_interval = timedelta(hours=1)
+    pulse_range = config.TIMEDELTA_RANGE
+    pulse_interval = config.TIMEDELTA_INTERVAL
     pulse_orders = api.CompleteOrders(last_updated_after=datetime.now()-pulse_range)
     new_orders = []
     for order in pulse_orders.complete_orders:
