@@ -17,8 +17,6 @@ def exists(order):
     """
     Returns True if the order exists in the DB
     """
-    print(order)
-    print(order.AmazonOrderId)
     order = (
         db.session.query(models.AmazonOrder)
         .filter(models.AmazonOrder.amazon_order_id == order.AmazonOrderId)

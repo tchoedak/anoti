@@ -4,3 +4,4 @@ mws
 sqlalchemy
 alembic
 click
+beautifultable
