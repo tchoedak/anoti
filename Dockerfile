@@ -35,5 +35,7 @@ RUN cd /usr/bin && ln -sf python3.7m python3m
 ADD requirements.txt /tmp/requirements.txt
 RUN pip3 install virtualenv
 RUN virtualenv --python=python3 venv
-RUN . venv/bin/activate
-RUN pip install -r /tmp/requirements.txt
+RUN . venv/bin/activate && pip install -r /tmp/requirements.txt
+
+RUN mkdir /root/app
+ADD . /root/app/
