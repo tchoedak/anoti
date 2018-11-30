@@ -39,3 +39,7 @@ RUN . venv/bin/activate && pip install -r /tmp/requirements.txt
 
 RUN mkdir /root/app
 ADD . /root/app/
+
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+ENTRYPOINT ["docker-entrypoint.sh"]
