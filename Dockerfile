@@ -3,31 +3,43 @@ FROM ubuntu:bionic
 MAINTAINER tchoedak <tchoedak@gmail.com>
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV SMTP_USERNAME=$SMTP_USERNAME
+ENV SMTP_PASSWORD=$SMTP_PASSWORD
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     git \
-    python-pip \
-    libmysqlclient-dev \
-    netcat \
     vim-tiny \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
     build-essential \
     python-dev \
     python3-dev \
+    python3.7 \
+    python3.7-dev \
     libsasl2-dev \
     python-setuptools \
-    python3-pip \
-    python3-setuptools \
+    python3.7-distutils \
+    ca-certificates \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN python -m pip install -U pip --no-cache-dir
-RUN pip3 install -U pip --no-cache-dir
-RUN pip2 install -U pip --no-cache-dir
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+RUN python3.7 get-pip.py --disable-pip-version-check --no-cache-dir pip setuptools;
 
-RUN cp /usr/local/bin/pip2.7 /usr/local/bin/pip
+RUN python3.7 -m pip install -U pip --no-cache-dir
+RUN pip3 install -U pip --no-cache-dir
+
+RUN cp /usr/local/bin/pip3.7 /usr/local/bin/pip
+RUN cd /usr/bin && ln -sf python3.7 python3
+RUN cd /usr/bin && ln -sf python3.7m python3m
+
 ADD requirements.txt /tmp/requirements.txt
-RUN python -m pip install -r /tmp/requirements.txt \
-    --no-cache-dir
+RUN pip3 install virtualenv
+RUN virtualenv --python=python3 venv
+RUN . venv/bin/activate && pip install -r /tmp/requirements.txt
+
+RUN mkdir /root/app
+ADD . /root/app/
+
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+ENTRYPOINT ["docker-entrypoint.sh"]
