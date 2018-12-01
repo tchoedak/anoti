@@ -19,3 +19,6 @@ EMAIL_PORT = '587'
 EMAIL_USERNAME = os.environ.get('SMTP_USERNAME')
 EMAIL_PASSWORD = os.environ.get('SMTP_PASSWORD')
 RECEIVER_EMAIL = os.environ.get('RECEIVER_EMAIL')
+
+email_enabled= True
+sms_enabled = True

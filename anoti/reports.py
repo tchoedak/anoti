@@ -5,9 +5,13 @@ def print_orders(*orders):
     print("""
     \033[1;32m====================================================================="""
     )
+    report = text_report(*orders)
+    print(table)
+
+def text_report(*orders):
     table = BeautifulTable()
     table.column_headers = ['Order Id', 'Order Type', 'Title', 'Order Amount', 'Purchase Date']
-    for order in orders:
+        for order in orders:
         table.append_row(
             [
                 order.AmazonOrderId,
@@ -19,5 +23,7 @@ def print_orders(*orders):
         )
 
     table.sort('Purchase Date')
-    print(table)
+    return table
 
+def html_report(*orders):
+    return None

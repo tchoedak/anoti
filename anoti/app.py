@@ -1,7 +1,7 @@
 import mws
 from datetime import datetime, timedelta
 import click
-from anoti import api, config, rules, dto, reports
+from anoti import api, config, rules, dto, reports, email
 
 @click.command()
 def cli():
@@ -22,11 +22,12 @@ def pulse():
     dto.save_orders(*new_orders)
     reports.print_orders(*new_orders)
 
-def alert(order):
-    print('Woah!!!')
-
-def save(orders):
-    pass
+def alert(*orders):
+    reports.print_orders(*orders)
+    if config.email_enabled:
+        email.send_order_message(report.text_report(*orders))
+    if config.sms_enabled:
+        print('woah!')
 
 if __name__ == '__main__':
     cli()
