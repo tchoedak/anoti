@@ -6,6 +6,8 @@ from . config import (
     EMAIL_PORT,
     RECEIVER_EMAIL
 )
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 
 def send_order_message(message):
@@ -13,13 +15,14 @@ def send_order_message(message):
     server.starttls()
     server.login(EMAIL_USERNAME, EMAIL_PASSWORD)
 
-    from email.mime.multipart import MIMEMultipart
     msg = MIMEMultipart()
     msg['From'] = EMAIL_USERNAME
     msg['To'] = RECEIVER_EMAIL
     msg['Subject'] = 'You have new Amazon Orders!'
 
-    msg.attach(message)
+    body = MIMEText(message, 'plain')
+
+    msg.attach(body)
     server.send_message(msg)
 
     del msg
