@@ -1,5 +1,6 @@
 import alembic.config
 
+
 def upgrade(revision='head'):
     upgrade_args = [
         '--raiseerr',
@@ -16,3 +17,7 @@ def downgrade(revision):
         revision
     ]
     alembic.config.main(argv=downgrade_args)
+
+
+if __name__ == '__main__':
+    upgrade()
