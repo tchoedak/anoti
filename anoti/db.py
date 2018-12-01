@@ -7,9 +7,11 @@ from sqlalchemy.orm import sessionmaker
 _db = f'{config.app}.db'
 url = f'sqlite:///{_db}'
 
+def _engine():
+    return create_engine(url)
+
 def _session():
-    engine = create_engine(url)
-    _sessionmaker = sessionmaker(bind=engine)
+    _sessionmaker = sessionmaker(bind=_engine())
     return _sessionmaker()
 
 
