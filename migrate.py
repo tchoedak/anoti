@@ -1,13 +1,18 @@
-from alembic.config import Config
-from alembic import command
-from anoti.db import _engine
+import alembic.config
 
-migrations_cfg = Config()
-migrations_cfg.set_main_option("script_location", "migrations")
-engine = _engine()
-connection = engine.begin()
+def upgrade(revision='head'):
+    upgrade_args = [
+        '--raiseerr',
+        'upgrade',
+        revision,
+    ]
 
-command.upgrade(
-    migrations_cfg,
-    'head'
-)
+    alembic.config.main(argv=upgrade_args)
+
+def downgrade(revision):
+    downgrade_args = [
+        '--raiseerr',
+        'downgrade',
+        revision
+    ]
+    alembic.config.main(argv=downgrade_args)
