@@ -9,6 +9,7 @@ ENV SMTP_PASSWORD=$SMTP_PASSWORD
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     git \
+    cron \
     vim-tiny \
     build-essential \
     python-dev \
