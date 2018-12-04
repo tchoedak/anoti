@@ -3,9 +3,6 @@ FROM ubuntu:bionic
 MAINTAINER tchoedak <tchoedak@gmail.com>
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV SMTP_USERNAME=$SMTP_USERNAME
-ENV SMTP_PASSWORD=$SMTP_PASSWORD
-
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     git \
@@ -40,7 +37,11 @@ RUN . venv/bin/activate && pip install -r /tmp/requirements.txt
 
 RUN mkdir /root/app
 ADD . /root/app/
-
+ENV SMTP_USERNAME=$SMTP_USERNAME
+ENV SMTP_PASSWORD=$SMTP_PASSWORD
+ENV SELLER_CENTRAL_ACCESS_KEY_ID=$SELLER_CENTRAL_ACCESS_KEY_ID
+ENV SELLER_CENTRAL_SECRET_KEY=$SELLER_CENTRAL_SECRET_KEY
+ENV RECEIVER_EMAIL=$RECEIVER_EMAIL
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
