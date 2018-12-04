@@ -6,12 +6,12 @@ def print_orders(*orders):
     \033[1;32m====================================================================="""
     )
     report = text_report(*orders)
-    print(table)
+    print(report)
 
 def text_report(*orders):
     table = BeautifulTable()
     table.column_headers = ['Order Id', 'Order Type', 'Title', 'Order Amount', 'Purchase Date']
-        for order in orders:
+    for order in orders:
         table.append_row(
             [
                 order.AmazonOrderId,
