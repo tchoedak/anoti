@@ -51,5 +51,4 @@ RUN mkdir /root/app
 ADD . /root/app/
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-RUN service cron start
 ENTRYPOINT ["docker-entrypoint.sh"]

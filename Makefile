@@ -8,4 +8,7 @@ build:
                 -t "anoti:dockerfile" .
 
 run:
-	docker run -it anoti:dockerfile /bin/bash
+	docker run -it -d anoti:dockerfile /bin/bash
+
+connect:
+	docker exec -it `docker ps --format "{{.Names}}"` /bin/bash
