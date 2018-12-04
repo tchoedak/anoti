@@ -1,5 +1,5 @@
 #!/bin/bash
-source venv/bin/activate
+source /venv/bin/activate
 cd /root/app
 
 python migrate.py
