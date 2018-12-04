@@ -20,7 +20,6 @@ def pulse():
         if rules.is_new(order):
             new_orders.append(order)
     dto.save_orders(*new_orders)
-    reports.print_orders(*new_orders)
 
 def alert(*orders):
     reports.print_orders(*orders)

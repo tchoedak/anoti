@@ -1,0 +1,1 @@
+* */3 * * * cd $HOME/app && sh job.sh >> /tmp/anoti.log
