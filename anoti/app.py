@@ -25,9 +25,9 @@ def pulse():
 
 def alert(orders):
     reports.print_orders(*orders)
-    if config.email_enabled:
+    if config.email_enabled and orders:
         emailer.send_order_message(str(reports.text_report(*orders)))
-    if config.sms_enabled:
+    if config.sms_enabled and orders:
         print('woah!')
 
 if __name__ == '__main__':
