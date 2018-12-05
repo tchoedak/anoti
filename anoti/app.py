@@ -12,19 +12,21 @@ def pulse():
     pulse_interval = config.TIMEDELTA_INTERVAL
     pulse_orders = api.CompleteOrders(last_updated_after=datetime.now()-pulse_range)
     new_orders = []
+    alerts = []
     for order in pulse_orders.complete_orders:
         if all([rule(order) for rule in rules.rules]):
-            alert(order)
+            alerts.append(order)
         if rules.is_shipped(order):
             pass
         if rules.is_new(order):
             new_orders.append(order)
+    alert(alerts)
     dto.save_orders(*new_orders)
 
-def alert(*orders):
+def alert(orders):
     reports.print_orders(*orders)
     if config.email_enabled:
-        emailer.send_order_message(reports.text_report(*orders))
+        emailer.send_order_message(str(reports.text_report(*orders)))
     if config.sms_enabled:
         print('woah!')
 
