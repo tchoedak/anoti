@@ -12,3 +12,6 @@ run:
 
 connect:
 	docker exec -it `docker ps --format "{{.Names}}"` /bin/bash
+
+stop:
+	docker stop `docker ps --format "{{.Names}}"`
