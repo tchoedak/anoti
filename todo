@@ -1,2 +1,3 @@
-run python anoti/app.py
-fix error on queries.exists()
+- pretty email formatting (html reports)
+- better rules and schedules
+- SMS integration
