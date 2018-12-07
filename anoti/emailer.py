@@ -20,7 +20,7 @@ def send_order_message(message):
     msg['To'] = RECEIVER_EMAIL
     msg['Subject'] = 'You have new Amazon Orders!'
 
-    body = MIMEText(message, 'plain')
+    body = MIMEText(message, 'html')
 
     msg.attach(body)
     server.send_message(msg)

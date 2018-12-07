@@ -1,5 +1,6 @@
 from beautifultable import BeautifulTable
 from . import util
+import pandas as pd
 
 def print_orders(*orders):
     print("""
@@ -26,4 +27,14 @@ def text_report(*orders):
     return table
 
 def html_report(*orders):
-    return None
+    data = [
+        {
+            'Order Id': order.AmazonOrderId,
+            'Order Type': order.OrderType,
+            'Title': order.OrderItem.Title,
+            'Order Amount': order.OrderTotal.Amount if 'OrderTotal' in order.keys() else 'N/A',
+            'Purchase Date': order.PurchaseDate,
+        }
+    for order in orders
+    ]
+    return pd.DataFrame(data).to_html()
