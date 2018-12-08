@@ -1,10 +1,10 @@
 import smtplib
-from . config import (
+from .config import (
     EMAIL_USERNAME,
     EMAIL_PASSWORD,
     EMAIL_HOST,
     EMAIL_PORT,
-    RECEIVER_EMAIL
+    RECEIVER_EMAIL,
 )
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart

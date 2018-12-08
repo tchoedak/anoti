@@ -7,8 +7,10 @@ from sqlalchemy.orm import sessionmaker
 _db = f'{config.app}.db'
 url = f'sqlite:///{_db}'
 
+
 def _engine():
     return create_engine(url)
+
 
 def _session():
     _sessionmaker = sessionmaker(bind=_engine())
@@ -26,6 +28,7 @@ def _cursor():
 
 session = _session()
 cursor = _cursor()
+
 
 def save(*objects):
     for obj in objects:

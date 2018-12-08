@@ -26,5 +26,5 @@ TWILIO_AUTH_TOKEN = os.environ.get('AUTH_TOKEN')
 RECEIVER_NUMBER = os.environ.get('RECEIVER_NUMBER')
 ANOTI_NUMBER = os.environ.get('ANOTI_NUMBER')
 # Alerts Configuration
-email_enabled= True
+email_enabled = True
 sms_enabled = True

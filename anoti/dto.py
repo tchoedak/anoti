@@ -7,9 +7,7 @@ from datetime import datetime
 
 def save_orders(*orders):
     for order in orders:
-        db.session.add(
-            amazon_order(order)
-        )
+        db.session.add(amazon_order(order))
     db.session.commit()
 
 
@@ -17,7 +15,7 @@ def amazon_order(order):
     """create an AmazonOrder object from an API parsed order"""
     return models.AmazonOrder(
         amazon_order_id=order.AmazonOrderId,
-        is_prime = order.IsPrime == 'true',
+        is_prime=order.IsPrime == 'true',
         title=order.OrderItem.Title,
         price=float(order.OrderTotal.Amount) if 'OrderTotal' in order.keys() else None,
         number_of_items=int(order.OrderItem.ProductInfo.NumberOfItems),
@@ -28,4 +26,3 @@ def amazon_order(order):
         created_at=datetime.now(),
         updated_at=datetime.now(),
     )
-
