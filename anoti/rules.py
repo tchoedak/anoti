@@ -1,7 +1,9 @@
 from . import queries
 
+
 def is_status(order, status):
     return order.OrderStatus == status
+
 
 def is_new(order):
     """
@@ -9,16 +11,19 @@ def is_new(order):
     """
     return queries.exists(order) == False
 
+
 def is_pending(order):
     """
     Order must be in pending status
     """
     return is_status(order, 'Pending')
 
+
 def is_shipped(order):
     """
     Order must be in shipped status
     """
     return is_status(order, 'Shipped')
+
 
 rules = [is_pending, is_new]

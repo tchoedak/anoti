@@ -1,10 +1,10 @@
 import smtplib
-from . config import (
+from .config import (
     EMAIL_USERNAME,
     EMAIL_PASSWORD,
     EMAIL_HOST,
     EMAIL_PORT,
-    RECEIVER_EMAIL
+    RECEIVER_EMAIL,
 )
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -15,14 +15,15 @@ def send_order_message(message):
     server.starttls()
     server.login(EMAIL_USERNAME, EMAIL_PASSWORD)
 
-    msg = MIMEMultipart()
-    msg['From'] = EMAIL_USERNAME
-    msg['To'] = RECEIVER_EMAIL
-    msg['Subject'] = 'You have new Amazon Orders!'
+    for receiver_email in RECEIVER_EMAIL:
+        msg = MIMEMultipart()
+        msg['From'] = EMAIL_USERNAME
+        msg['To'] = receiver_email
+        msg['Subject'] = 'You have new Amazon Orders!'
 
-    body = MIMEText(message, 'html')
+        body = MIMEText(message, 'html')
 
-    msg.attach(body)
-    server.send_message(msg)
+        msg.attach(body)
+        server.send_message(msg)
 
-    del msg
+        del msg

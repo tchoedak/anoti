@@ -19,4 +19,3 @@ class AmazonOrder(Base):
     ship_service_level = Column(String)
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
-

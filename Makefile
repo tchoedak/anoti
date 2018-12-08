@@ -5,6 +5,10 @@ build:
                 --build-arg RECEIVER_EMAIL \
                 --build-arg SELLER_CENTRAL_ACCESS_KEY_ID \
                 --build-arg SELLER_CENTRAL_SECRET_KEY \
+		--build-arg ACCOUNT_SID \
+		--build-arg AUTH_TOKEN \
+		--build-arg RECEIVER_NUMBER \
+		--build-arg ANOTI_NUMBER \
                 -t "anoti:dockerfile" .
 
 run:

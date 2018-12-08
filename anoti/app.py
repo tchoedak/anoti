@@ -1,16 +1,18 @@
 import mws
 from datetime import datetime, timedelta
 import click
-from anoti import api, config, rules, dto, reports, emailer
+from anoti import api, config, rules, dto, reports, emailer, sms
+
 
 @click.command()
 def cli():
     pulse()
 
+
 def pulse():
     pulse_range = config.TIMEDELTA_RANGE
     pulse_interval = config.TIMEDELTA_INTERVAL
-    pulse_orders = api.CompleteOrders(last_updated_after=datetime.now()-pulse_range)
+    pulse_orders = api.CompleteOrders(last_updated_after=datetime.now() - pulse_range)
     new_orders = []
     alerts = []
     for order in pulse_orders.complete_orders:
@@ -23,12 +25,14 @@ def pulse():
     alert(alerts)
     dto.save_orders(*new_orders)
 
+
 def alert(orders):
     reports.print_orders(*orders)
     if config.email_enabled and orders:
         emailer.send_order_message(reports.html_report(*orders))
     if config.sms_enabled and orders:
-        print('woah!')
+        sms.send_text_message(reports.sms_report(*orders))
+
 
 if __name__ == '__main__':
     cli()
