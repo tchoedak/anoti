@@ -1,7 +1,7 @@
 import mws
 from datetime import datetime, timedelta
 import click
-from anoti import api, config, rules, dto, reports, emailer
+from anoti import api, config, rules, dto, reports, emailer, sms
 
 
 @click.command()
