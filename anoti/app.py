@@ -28,7 +28,7 @@ def alert(orders):
     if config.email_enabled and orders:
         emailer.send_order_message(reports.html_report(*orders))
     if config.sms_enabled and orders:
-        print('woah!')
+        sms.send_text_message(reports.sms_report(*orders))
 
 if __name__ == '__main__':
     cli()
