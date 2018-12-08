@@ -22,6 +22,8 @@ EMAIL_USERNAME = os.environ.get('SMTP_USERNAME')
 EMAIL_PASSWORD = os.environ.get('SMTP_PASSWORD')
 TWILIO_ACCOUNT_SID = os.environ.get('ACCOUNT_SID')
 TWILIO_AUTH_TOKEN = os.environ.get('AUTH_TOKEN')
+ANOTI_NUMBER = os.environ.get('ANOTI_NUMBER')
+
 
 # Receiver Configuration
 # WARNING: receiver should not have ',' in their emails or phone numbers
@@ -29,7 +31,6 @@ RECEIVER_EMAIL = os.environ.get('RECEIVER_EMAIL').split(',')
 RECEIVER_NUMBER = os.environ.get('RECEIVER_NUMBER').split(',')
 
 
-ANOTI_NUMBER = os.environ.get('ANOTI_NUMBER')
 # Alerts Configuration
 email_enabled = True
 sms_enabled = True

@@ -18,7 +18,7 @@ def send_order_message(message):
     for receiver_email in RECEIVER_EMAIL:
         msg = MIMEMultipart()
         msg['From'] = EMAIL_USERNAME
-        msg['To'] = RECEIVER_EMAIL
+        msg['To'] = receiver_email
         msg['Subject'] = 'You have new Amazon Orders!'
 
         body = MIMEText(message, 'html')
