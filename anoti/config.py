@@ -3,9 +3,9 @@ from datetime import timedelta
 
 # Amazon API configuration
 endpoint = 'Orders'
-seller_id = 'A3QF7LT0E0UZ9U'
+seller_id = os.environ.get('SELLER_ID')
 service = "https://mws.amazonservices.com"
-marketplace_id = 'ATVPDKIKX0DER'
+marketplace_id = 'ATVPDKIKX0DER' # US market
 country_code = 'US'
 request_per_hour_quota = 200
 access_key = os.environ.get('SELLER_CENTRAL_ACCESS_KEY_ID')
@@ -14,7 +14,7 @@ app = 'anoti'
 
 
 # Anoti App Configuration
-TIMEDELTA_RANGE = timedelta(hours=120)
+TIMEDELTA_RANGE = timedelta(hours=120) # app will view orders updated in the last 120 hours
 TIMEDELTA_INTERVAL = timedelta(hours=1)
 EMAIL_HOST = 'smtp.zoho.com'
 EMAIL_PORT = '587'

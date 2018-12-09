@@ -26,4 +26,4 @@ def is_shipped(order):
     return is_status(order, 'Shipped')
 
 
-rules = [is_pending, is_new]
+rules = [is_new]
