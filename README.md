@@ -13,11 +13,11 @@ need a more responsive, customizable alert system for their orders.
 # Installation
 anoti uses the following stacks and services
 
-* twilio to send SMS
-* zohomail to serve emails
-* digitalocean for cloud computing platform and DNS
-* sqlite3 database to store orders
-* docker to containerize multiple instances of the application
+* [twilio](www.twilio.com) to send SMS
+* [zohomail](www.zoho.com) to serve emails
+* [digitalocean](www.digitalocean.com) for cloud computing platform and DNS
+* [sqlite3](www.sqlite3.org) database to store orders
+* [docker](www.docker.com) to containerize multiple instances of the application
 
 If any of this is a foreign language to you, you most likely need a developer's
 help getting all of this setup. Reach me directly @tchoedak <tchoedak@gmail.com>
