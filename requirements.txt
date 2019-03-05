@@ -7,3 +7,4 @@ click==7.0
 beautifultable==0.5.3
 pandas==0.23.4
 twilio==6.21.0
+bugsnag
