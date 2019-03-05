@@ -1,5 +1,6 @@
 from datetime import datetime
-import os, logging
+import os
+import logging
 
 
 def parse_amazon_datetime(datetime_value):
