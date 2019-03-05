@@ -15,6 +15,7 @@ def amazon_order(order):
     """create an AmazonOrder object from an API parsed order"""
     return models.AmazonOrder(
         amazon_order_id=order.AmazonOrderId,
+        sku=order.OrderItem.SellerSKU,
         is_prime=order.IsPrime == 'true',
         title=order.OrderItem.Title,
         price=float(order.OrderTotal.Amount) if 'OrderTotal' in order.keys() else None,

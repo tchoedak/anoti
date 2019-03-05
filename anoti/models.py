@@ -9,6 +9,7 @@ class AmazonOrder(Base):
     __tablename__ = 'amazon_orders'
 
     amazon_order_id = Column(String, primary_key=True)
+    sku = Column(String)
     is_prime = Column(Boolean)
     title = Column(String)
     number_of_items = Column(Integer)
