@@ -1,26 +1,44 @@
-import mws
 from datetime import datetime
 import click
+import time
 from anoti import api, config, rules, dto, reports, emailer, sms
+from anoti.util import logger
 
 
-def pulse():
+@click.group()
+def cli():
+    pass
+
+
+@click.command()
+@click.argument('minutes_interval')
+def pulse(minutes_interval):
     '''
     Activate a pulse check on recent orders against Amazon's MWS API
     '''
-    orders = api.CompleteOrders(
-        last_updated_after=datetime.now() - config.TIMEDELTA_RANGE
-    )
-    new_orders, alerts = [], []
-    for order in orders.complete_orders:
-        if all([rule(order) for rule in rules.rules]):
-            # add order to alerts queue if all rules are met
-            alerts.append(order)
-        if rules.is_new(order):
-            # save new orders to the DB
-            new_orders.append(order)
-    alert(alerts)
-    dto.save_orders(*new_orders)
+    while True:
+        logger.info(f'Finding orders since {datetime.now() - config.TIMEDELTA_RANGE}')
+        orders = api.CompleteOrders(
+            created_after=datetime.now() - config.TIMEDELTA_RANGE
+        )
+        new_orders, alerts, total = [], [], []
+        for order in orders.complete_orders:
+            if all([rule(order) for rule in rules.rules]):
+                # add order to alerts queue if all rules are met
+                alerts.append(order)
+            if rules.is_new(order):
+                # save new orders to the DB
+                new_orders.append(order)
+            total.append(order)
+
+        logger.info(f'Found {len(total)} total orders')
+        logger.info(f'Captured {len(alerts)} alerts to be sent')
+        alert(alerts)
+        logger.info(f'Saving {len(new_orders)} new orders to the DB')
+        dto.save_orders(*new_orders)
+        sleep_minutes = int(minutes_interval) * 60
+        logger.info(f'Sleeping for {minutes_interval} minutes')
+        time.sleep(sleep_minutes)
 
 
 def alert(orders):
@@ -34,5 +52,8 @@ def alert(orders):
         sms.send_text_message(reports.sms_report(*orders))
 
 
+cli.add_command(pulse)
+
+
 if __name__ == '__main__':
-    pulse()
+    cli()

@@ -1,4 +1,6 @@
 from datetime import datetime
+import os
+import logging
 
 
 def parse_amazon_datetime(datetime_value):
@@ -27,3 +29,29 @@ def parse(message):
         elif isinstance(val, dict):
             parsed.update(parse(val))
     return parsed
+
+
+def get_logger(path='/root'):
+    if not os.path.isdir(path):
+        path = os.path.abspath(os.path.curdir)
+    filepath = os.path.join(path, 'anoti.log')
+    logger = logging.getLogger('anoti')
+
+    handler = logging.FileHandler(filepath)
+    handler.setLevel(logging.INFO)
+    stream_handler = logging.StreamHandler()
+    stream_handler.setLevel(logging.INFO)
+
+    formatter = logging.Formatter(
+        '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
+    handler.setFormatter(formatter)
+    stream_handler.setFormatter(formatter)
+
+    logger.addHandler(handler)
+    logger.addHandler(stream_handler)
+    logger.setLevel(logging.INFO)
+    return logger
+
+
+logger = get_logger()
