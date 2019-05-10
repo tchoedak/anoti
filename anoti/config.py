@@ -14,6 +14,7 @@ class Key(object):
             if prompt
             else f'{self.required_str}: Please enter your {key}'
         )
+        self.default = None if required else ''
 
 
 class Config(object):
@@ -63,15 +64,16 @@ class Config(object):
             )
 
     def build_config(self):
-        with open(self.PATH, 'wb') as f:
+        with open(self.PATH, 'w') as f:
             for key in self.keys:
-                self.put(f, key.key, click.prompt(key.prompt))
+                self.put(f, key.key, click.prompt(key.prompt, default=key.default, show_default=False))
 
     def get(self, key):
         return self.config.get(key)
 
     def put(self, file_, key, val):
-        file_.write(f'{key}={val}')
+        if val:
+            file_.write(f'{key}={val}\n')
 
 
 config = Config()
@@ -95,7 +97,7 @@ TIMEDELTA_RANGE = timedelta(hours=2)  # app will view orders updated in the last
 TIMEDELTA_INTERVAL = timedelta(hours=1)
 EMAIL_HOST = config.get('EMAIL_HOST')
 EMAIL_PORT = config.get('EMAIL_PORT')
-EMAIL_USERNAMAE = config.get('SMTP_USERNAME')
+EMAIL_USERNAME = config.get('SMTP_USERNAME')
 EMAIL_PASSWORD = config.get('SMTP_PASSWORD')
 ANOTI_NUMBER = config.get('TWILIO_NUMBER')
 TWILIO_ACCOUNT_SID = config.get('TWILIO_ACCOUNT_SID')
@@ -115,13 +117,13 @@ BUGSNAG_API_KEY = config.get('BUGSNAG_API_KEY')
 BUGSNAG_ENABLED = BUGSNAG_API_KEY is not None
 
 email_enabled = (
-    SMTP_USERNAME is not None
-    and SMTP_PASSWORD is not None
+    EMAIL_USERNAME is not None
+    and EMAIL_PASSWORD is not None
     and RECEIVER_EMAIL is not None
 )
 
 sms_enabled = (
-    TWILIO_NUMBER is not None
+    ANOTI_NUMBER is not None
     and TWILIO_ACCOUNT_SID is not None
     and RECEIVER_NUMBER is not None
 )
