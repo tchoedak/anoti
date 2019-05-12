@@ -1,3 +1,4 @@
+import os
 import sqlite3
 from . import config
 from sqlalchemy import engine, create_engine
