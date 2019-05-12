@@ -4,7 +4,8 @@ from sqlalchemy import engine, create_engine
 from sqlalchemy.orm import sessionmaker
 
 
-_db = f'{config.app}.db'
+path = os.path.join(os.path.expanduser('~'))
+_db = os.path.join(f"{path}", ".anoti.db")
 url = f'sqlite:///{_db}'
 
 
