@@ -5,7 +5,7 @@ from setuptools import setup
 setup(
     name='anoti',
     packages=['anoti'],
-    version='0.3.0',
+    version='0.3.1',
     description='anoti',
     author='tchoedak',
     author_email='tchoedak@gmail.com',
