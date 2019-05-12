@@ -18,7 +18,8 @@ setup(
         'pandas',
         'twilio',
         'bugsnag',
-        'mws'
+        'mws',
+        'colorama'
     ],
     entry_points={
         'console_scripts': ['anoti=anoti.app:cli'],
