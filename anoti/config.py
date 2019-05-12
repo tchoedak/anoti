@@ -2,6 +2,7 @@ import os
 from datetime import timedelta
 import bugsnag
 import click
+from colorama import Fore
 
 
 class Key(object):
@@ -49,8 +50,15 @@ class Config(object):
         ]
 
         try:
+            print(f"{Fore.BLUE}Loading config..{Fore.RESET}")
             self.load_config()
+            print(f"{Fore.GREEN}Config loaded.{Fore.RESET}")
+        except click.exceptions.Abort:
+            os.remove(self.PATH)
         except FileNotFoundError:
+            print(
+                f"{Fore.RED}Config doesn't exist. Attempting to build one..{Fore.RESET}"
+            )
             self.build_config()
             self.load_config()
 
@@ -66,7 +74,11 @@ class Config(object):
     def build_config(self):
         with open(self.PATH, 'w') as f:
             for key in self.keys:
-                self.put(f, key.key, click.prompt(key.prompt, default=key.default, show_default=False))
+                self.put(
+                    f,
+                    key.key,
+                    click.prompt(key.prompt, default=key.default, show_default=False),
+                )
 
     def get(self, key):
         return self.config.get(key)
